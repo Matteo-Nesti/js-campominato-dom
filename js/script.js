@@ -29,15 +29,7 @@ const headerButton = document.getElementById('headerButton')
 const cells = document.getElementById('cells')
 const diffcultyField = document.getElementById('diff')
 const score = document.getElementById('score')
-
-// creo le caselle 
-
-let rows = 10;
-let cols = 10;
-const totalCells = cols * rows
-
-// punteggio giocatore
-let playerScore = 0;
+const finalMessage = document.getElementById('message')
 
 // numero bombe
 const bombsNumber = 16
@@ -48,16 +40,44 @@ headerButton.addEventListener('click', function(){
     //svuoto
     cells.innerHTML = ''
     score.innerHTML = ''
-    playerScore = 0
+    let playerScore = 0;
+
+    let rows = 10;
+    let cols = 10;
+    let totalCells = cols * rows
+
+    
     //leggo il value della select
     const difficulty = diffcultyField.value
+    
+    if(difficulty === 'normal'){
+        rows = 9;
+        cols = 9;
+        totalCells = cols * rows
+    }
+
+    else if(difficulty === 'hard'){
+        rows = 7;
+        cols = 7;
+        totalCells = cols * rows
+    }
+    
+    // funzione per le bombe
+    const createBombs = (bombs, bombsNumber) => {
+    while(bombs.length < bombsNumber){
+    const spawnBombs = (Math.floor(Math.random() * totalCells) + 1)   
+    if(!bombs.includes(spawnBombs)){
+         bombs.push(spawnBombs);
+        }
+    }
+    return;
+    }
 
     // genero le bombe
     const bombs = [];
     createBombs(bombs, bombsNumber)
     console.log(bombs)
 
-    
     const cellsReveal = () => {
         const endGame = document.querySelectorAll('.cell')
         for(let i = 0; i < endGame.length; i++){
@@ -69,8 +89,6 @@ headerButton.addEventListener('click', function(){
         return;
     }
 
-
-    if(difficulty == 'easy'){
         for(let i = 1; i <= totalCells; i++){
            
            const cell = createCells(i, difficulty)
@@ -86,52 +104,19 @@ headerButton.addEventListener('click', function(){
                         playerScore--
                         cell.classList.add('bombs') 
                         cellsReveal()
-                        score.innerText = playerScore + ' HAI PERSO' ;
+                        score.innerText = playerScore;
+                        finalMessage.innerText = 'Hai perso!!!';
                     }
                     else{
                         score.innerText = playerScore;
                         if(playerScore === totalCells - bombsNumber) {
-                            score.innerText = 'HAI VINTO';
+                            finalMessage.innerText = 'HAI VINTO';
                             cellsReveal()
                         }
                     }
                 }
             })
         }
-    }
-    
-
-    else if(difficulty == 'normal'){
-        rows = 9;
-        cols = 9;
-        const totalCells = cols * rows
-        for(let i = 1; i <= totalCells; i++){
-            const cell = createCells(i, difficulty)
-            cells.appendChild(cell)
-            
-            //metto in ascolto le celle
-            
-            cell.addEventListener('click', function(){
-                cell.classList.add('clicked')
-                console.log(i)
-            })
-        }
-    }
-    else if(difficulty == 'hard'){
-        rows = 7;
-        cols = 7;
-        const totalCells = cols * rows
-        for(let i = 1; i <= totalCells; i++){
-            const cell = createCells(i, difficulty)
-            cells.appendChild(cell)
-            //metto in ascolto le celle
-            
-            cell.addEventListener('click', function(){
-                cell.classList.add('clicked')
-                console.log(i)
-            })
-        }
-    }
 })
 
 
@@ -147,15 +132,4 @@ function createCells(CellNumber, difficulty){
         return cell;
     }
 
-    // funzione per le bombe
-function createBombs(bombs, bombsNumber){
-    while(bombs.length < bombsNumber){
-    const spawnBombs = (Math.floor(Math.random() * totalCells) + 1)   
-    if(!bombs.includes(spawnBombs)){
-        bombs.push(spawnBombs);
-        }
-    }
-    return;
-}
-
-
+ 

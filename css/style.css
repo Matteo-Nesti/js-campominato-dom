@@ -19,6 +19,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bolder;
 }
 .cell.easy {
     height: calc(100% / 10);
@@ -40,6 +41,6 @@ main {
 }
 
 .bombs.clicked {
-    background-color:red;
+    background-color:rgb(255, 73, 73);
 }
 
