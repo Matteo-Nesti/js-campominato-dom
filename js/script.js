@@ -28,7 +28,7 @@ cliccata.
 const headerButton = document.getElementById('headerButton')
 const cells = document.getElementById('cells')
 const diffcultyField = document.getElementById('diff')
-
+const score = document.getElementById('score')
 // creo le caselle 
 
 let rows = 10;
@@ -41,6 +41,7 @@ let playerScore = 0;
 // numeri caasuali 
 const bombsNumber = 16
 const bombs = [];
+
 
 
 headerButton.addEventListener('click', function(){
@@ -66,12 +67,15 @@ headerButton.addEventListener('click', function(){
             cell.addEventListener('click', function(){
                 if(!cell.classList.contains('clicked')){
                     cell.classList.add('clicked')
-                    if(bombs.includes(i)) {
-                        cell.classList.add('bombs')
+                    console.log(i + ' clicked number') 
+                    if(bombs.includes(i)){
+                        cell.classList.add('bombs') 
+                        console.log('hai totalizzato ' + playerScore + ' partita terminata')
                     }
-                    
-                    playerScore++
-                    console.log(i + ' clicked number', playerScore + ' punteggio giocatore')
+                    else{
+                        playerScore++
+                        score.innerText = playerScore;
+                    }
                 }
             })
         }
@@ -127,7 +131,7 @@ function createCells(CellNumber, difficulty){
     // funzione per le bombe
 function createBombs(bombs, bombsNumber){
     while(bombs.length < bombsNumber){
-    const spawnBombs = (Math.floor(Math.random() * bombsNumber) + 1)   
+    const spawnBombs = (Math.floor(Math.random() * totalCells) + 1)   
     if(!bombs.includes(spawnBombs)){
         bombs.push(spawnBombs);
         }

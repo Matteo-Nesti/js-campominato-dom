@@ -39,7 +39,7 @@ main {
     background-color: goldenrod;
 }
 
-.bombs {
+.bombs.clicked {
     background-color:red;
 }
 
