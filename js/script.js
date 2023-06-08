@@ -56,6 +56,7 @@ headerButton.addEventListener('click', function(){
     createBombs(bombs, bombsNumber)
     console.log(bombs)
 
+    
     const cellsReveal = () => {
         const endGame = document.querySelectorAll('.cell')
         for(let i = 0; i < endGame.length; i++){
@@ -79,14 +80,18 @@ headerButton.addEventListener('click', function(){
                 if(!cell.classList.contains('clicked')){
                     cell.classList.add('clicked')
                     console.log(i + ' clicked number') 
+                    playerScore++
                     if(bombs.includes(i)){
                         cell.classList.add('bombs') 
                         cellsReveal()
-                        console.log('hai totalizzato ' + playerScore + ' partita terminata')
+                        score.innerText = playerScore + ' HAI PERSO' ;
                     }
                     else{
-                        playerScore++
                         score.innerText = playerScore;
+                        if(playerScore === totalCells - bombsNumber) {
+                            score.innerText = 'HAI VINTO';
+                            cellsReveal()
+                        }
                     }
                 }
             })
