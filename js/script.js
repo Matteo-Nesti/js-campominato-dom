@@ -43,6 +43,8 @@ headerButton.addEventListener('click', function(){
     //leggo il value della select
     const difficulty = diffcultyField.value
 
+    let playerScore = 0;
+
     if(difficulty == 'easy'){
         for(let i = 1; i <= easyCell; i++){
            
@@ -51,8 +53,11 @@ headerButton.addEventListener('click', function(){
             //metto in ascolto le celle
             
             cell.addEventListener('click', function(){
-                cell.classList.add('clicked')
-                console.log(i)
+                if(!cell.classList.contains('clicked')){
+                    cell.classList.add('clicked')
+                    playerScore++
+                    console.log(i + ' clicked number', playerScore + ' punteggio giocatore')
+                }
             })
         }
     }
@@ -103,10 +108,3 @@ function createCells(CellNumber, difficulty){
         cell.append(CellNumber)
         return cell;
     }
-// funzione per cliccare una cella
-function clickOnCell() {
-    cell.addEventListener('click', function(){
-        cell.classList.add('clicked')
-        console.log(i)
-    })
-}
