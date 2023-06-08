@@ -36,7 +36,7 @@ main {
 }
 
 .cell.clicked {
-    background-color: goldenrod;
+    background-color: rgb(76, 194, 135);
 }
 
 .bombs.clicked {

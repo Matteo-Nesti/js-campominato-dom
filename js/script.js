@@ -29,6 +29,7 @@ const headerButton = document.getElementById('headerButton')
 const cells = document.getElementById('cells')
 const diffcultyField = document.getElementById('diff')
 const score = document.getElementById('score')
+
 // creo le caselle 
 
 let rows = 10;
@@ -49,6 +50,7 @@ headerButton.addEventListener('click', function(){
     headerButton.innerText = 'rigioca!'
     //svuoto
     cells.innerHTML = ''
+    score.innerHTML = ''
     //leggo il value della select
     const difficulty = diffcultyField.value
 
@@ -70,6 +72,7 @@ headerButton.addEventListener('click', function(){
                     console.log(i + ' clicked number') 
                     if(bombs.includes(i)){
                         cell.classList.add('bombs') 
+                        cellsReveal()
                         console.log('hai totalizzato ' + playerScore + ' partita terminata')
                     }
                     else{
@@ -136,5 +139,18 @@ function createBombs(bombs, bombsNumber){
         bombs.push(spawnBombs);
         }
     }
-    return 
+    return;
+}
+
+// funzione rilevare celle 
+
+function cellsReveal(){
+    const endGame = document.querySelectorAll('.cell')
+    for(let i = 0; i < endGame.length; i++){
+        const cell = endGame[i];
+        cell.classList.add('clicked')
+        const cellNumber = parseInt(cell.innerText)
+        if(bombs.includes(cellNumber)) cell.classList.add('bombs')
+    }  
+    return;
 }
