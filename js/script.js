@@ -39,11 +39,8 @@ const totalCells = cols * rows
 // punteggio giocatore
 let playerScore = 0;
 
-// numeri caasuali 
+// numero bombe
 const bombsNumber = 16
-const bombs = [];
-
-
 
 headerButton.addEventListener('click', function(){
 
@@ -55,8 +52,20 @@ headerButton.addEventListener('click', function(){
     const difficulty = diffcultyField.value
 
     // genero le bombe
+    const bombs = [];
     createBombs(bombs, bombsNumber)
     console.log(bombs)
+
+    const cellsReveal = () => {
+        const endGame = document.querySelectorAll('.cell')
+        for(let i = 0; i < endGame.length; i++){
+            const cell = endGame[i];
+            cell.classList.add('clicked')
+            const cellNumber = parseInt(cell.innerText)
+            if(bombs.includes(cellNumber)) cell.classList.add('bombs')
+        }  
+        return;
+    }
 
 
     if(difficulty == 'easy'){
@@ -142,15 +151,4 @@ function createBombs(bombs, bombsNumber){
     return;
 }
 
-// funzione rilevare celle 
 
-function cellsReveal(){
-    const endGame = document.querySelectorAll('.cell')
-    for(let i = 0; i < endGame.length; i++){
-        const cell = endGame[i];
-        cell.classList.add('clicked')
-        const cellNumber = parseInt(cell.innerText)
-        if(bombs.includes(cellNumber)) cell.classList.add('bombs')
-    }  
-    return;
-}
