@@ -33,20 +33,31 @@ const diffcultyField = document.getElementById('diff')
 
 let rows = 10;
 let cols = 10;
-const easyCell = cols * rows
+const totalCells = cols * rows
+
+// punteggio giocatore
+let playerScore = 0;
+
+// numeri caasuali 
+const bombsNumber = 16
+const bombs = [];
+
 
 headerButton.addEventListener('click', function(){
-    
+
     headerButton.innerText = 'rigioca!'
     //svuoto
     cells.innerHTML = ''
     //leggo il value della select
     const difficulty = diffcultyField.value
 
-    let playerScore = 0;
+    // genero le bombe
+    createBombs(bombs, bombsNumber)
+    console.log(bombs)
+
 
     if(difficulty == 'easy'){
-        for(let i = 1; i <= easyCell; i++){
+        for(let i = 1; i <= totalCells; i++){
            
            const cell = createCells(i, difficulty)
            cells.appendChild(cell)
@@ -55,6 +66,10 @@ headerButton.addEventListener('click', function(){
             cell.addEventListener('click', function(){
                 if(!cell.classList.contains('clicked')){
                     cell.classList.add('clicked')
+                    if(bombs.includes(i)) {
+                        cell.classList.add('bombs')
+                    }
+                    
                     playerScore++
                     console.log(i + ' clicked number', playerScore + ' punteggio giocatore')
                 }
@@ -66,8 +81,8 @@ headerButton.addEventListener('click', function(){
     else if(difficulty == 'normal'){
         rows = 9;
         cols = 9;
-        const easyCell = cols * rows
-        for(let i = 1; i <= easyCell; i++){
+        const totalCells = cols * rows
+        for(let i = 1; i <= totalCells; i++){
             const cell = createCells(i, difficulty)
             cells.appendChild(cell)
             
@@ -82,8 +97,8 @@ headerButton.addEventListener('click', function(){
     else if(difficulty == 'hard'){
         rows = 7;
         cols = 7;
-        const easyCell = cols * rows
-        for(let i = 1; i <= easyCell; i++){
+        const totalCells = cols * rows
+        for(let i = 1; i <= totalCells; i++){
             const cell = createCells(i, difficulty)
             cells.appendChild(cell)
             //metto in ascolto le celle
@@ -108,3 +123,14 @@ function createCells(CellNumber, difficulty){
         cell.append(CellNumber)
         return cell;
     }
+
+    // funzione per le bombe
+function createBombs(bombs, bombsNumber){
+    while(bombs.length < bombsNumber){
+    const spawnBombs = (Math.floor(Math.random() * bombsNumber) + 1)   
+    if(!bombs.includes(spawnBombs)){
+        bombs.push(spawnBombs);
+        }
+    }
+    return 
+}
