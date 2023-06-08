@@ -1,0 +1,41 @@
+main {
+    background-color: lightyellow;
+}
+
+main {
+    padding: 4rem;
+}
+.cellsContainer {
+    width: 700px;
+    height: 700px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell {
+    background-color: lightblue;
+    border: 2px solid blue;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cell.easy {
+    height: calc(100% / 10);
+    width: calc(100% / 10);
+}
+
+.cell.normal{
+    height: calc(100% / 9);
+    width: calc(100% / 9);
+}
+
+.cell.hard{
+    height: calc(100% / 7);
+    width: calc(100% / 7);
+}
+
+.cell.clicked {
+    background-color: goldenrod;
+}
+
