@@ -48,6 +48,7 @@ headerButton.addEventListener('click', function(){
     //svuoto
     cells.innerHTML = ''
     score.innerHTML = ''
+    playerScore = 0
     //leggo il value della select
     const difficulty = diffcultyField.value
 
@@ -82,6 +83,7 @@ headerButton.addEventListener('click', function(){
                     console.log(i + ' clicked number') 
                     playerScore++
                     if(bombs.includes(i)){
+                        playerScore--
                         cell.classList.add('bombs') 
                         cellsReveal()
                         score.innerText = playerScore + ' HAI PERSO' ;
